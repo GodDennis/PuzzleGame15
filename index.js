@@ -6,7 +6,10 @@ let arrbtn;
 let box = document.createElement("div");
 box.className = 'pazzle';
 document.body.append(box);
-
+let shufllebtn = document.createElement("button")
+shufllebtn.className = "shuffle"
+document.body.append(shufllebtn)
+shufllebtn.textContent = "Перемешать!"
 function createBtn() {
     let btn = document.createElement("button");
     btn.classList.add('btn')
@@ -49,15 +52,59 @@ function setNode(node, x, y) {
     node.style.transform = `translate3D(${x * shift}%,${y * shift}%,0)`;
 }
 /** 2. Shuffle */
-let shuffledArr = shuflle(arr.flat())
-arr = getMatrix(shuffledArr)
-setPos(arr)
+// let shuffledArr = shuflle(arr.flat())
+// arr = getMatrix(shuffledArr)
+// setPos(arr)
 
+// function shuflle(arr) {
+//     let a = arr.map(value => ({ value, sort: Math.random() }))
+//         .sort((a, b) => a.sort - b.sort)
+//         .map(({ value }) => value)
+//     return a
+// }
+const maxShuffle = 100;
+let timer;
+let shuffleCount = 0;
+clearInterval(timer);
+shufllebtn.addEventListener("click", () => {
+    if (shuffleCount === 0) {
+        timer = setInterval(() => {
+            shuflle(arr)
+            shuffleCount += 1
+            if (shuffleCount >= maxShuffle) {
+                shuffleCount = 0
+                clearInterval(timer);
+            }
+        }, 50)
+    }
+})
+let blockCoords = null;
 function shuflle(arr) {
-    let a = arr.map(value => ({ value, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value)
-    return a
+    let blankNode = 16
+    let blankCoords = tailCoords(blankNode, arr);
+    let validCoords = findValidCoords({
+        blankCoords,
+        arr,
+        blockCoords
+    })
+    const finalCoords = validCoords[Math.floor(Math.random() * validCoords.length)]
+    swap(blankCoords, finalCoords, arr)
+    setPos(arr)
+    blockCoords = blankCoords;
+}
+
+function findValidCoords({ blankCoords, arr, blockCoords }) {
+    const validCoords = [];
+    for (let y = 0; y < arr.length; y++) {
+        for (let x = 0; x < arr[y].length; x++) {
+            if (CheckValid({ x, y }, blankCoords)) {
+                if (!blockCoords || !(blockCoords.x === x && blockCoords.y === y)) {
+                    validCoords.push({ x, y })
+                }
+            }
+        }
+    }
+    return validCoords
 }
 function getMatrix() {
     let matrix = [[], [], [], []];
@@ -75,7 +122,9 @@ function getMatrix() {
     }
     return matrix
 }
+
 /** 3. Change tail */
+
 box.addEventListener("click", (event) => {
     let blankNode = 16;
     let buttonNode = event.target.closest('button');
