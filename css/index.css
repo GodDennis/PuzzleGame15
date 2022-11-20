@@ -25,16 +25,17 @@ body {
   -webkit-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
   position: relative;
+  -webkit-box-shadow: 0px 0px 100px black;
+          box-shadow: 0px 0px 100px black;
 }
 
 .btn {
-  background-color: rgb(85, 179, 213);
   cursor: pointer;
   position: absolute;
   left: 0;
   top: 0;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
   width: 25%;
   height: 25%;
   font-family: fantasy;
@@ -43,9 +44,25 @@ body {
 }
 
 .btn:hover {
-  background-color: #FFDF00;
+  background-color: #a8b7be;
 }
 
 .btn:last-child {
   display: none;
+}
+
+.shuffle {
+  margin-top: 20px;
+  width: 200px;
+  height: 50px;
+  font-family: fantasy;
+  font-size: 2vh;
+  border-radius: 10px;
+  -webkit-box-shadow: 2px 5px 20px black;
+          box-shadow: 2px 5px 20px black;
+  cursor: pointer;
+}
+
+.shuffle:hover {
+  background-color: #a8b7be;
 }

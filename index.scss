@@ -15,13 +15,14 @@ body {
     flex-wrap: wrap;
     transition: all 1s ease-in-out;
     position: relative;
+    box-shadow: 0px 0px 100px black;
 }
 .btn {
     cursor: pointer;
     position: absolute;
     left: 0;
     top: 0;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.15s ease-in-out;
     width: 25%;
     height: 25%;
     font-family: fantasy;
@@ -32,5 +33,18 @@ body {
     }
     &:last-child {
         display: none;
+    }
+}
+.shuffle {
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    font-family: fantasy;
+    font-size: 2vh;
+    border-radius: 10px;
+    box-shadow: 2px 5px 20px black;
+    cursor: pointer;
+    &:hover {
+        background-color: #a8b7be;
     }
 }
